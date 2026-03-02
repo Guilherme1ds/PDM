@@ -18,6 +18,12 @@ class _PaginaContadorState extends State<PaginaContador> {
     });
   }
 
+  void decrement(){
+    setState((){
+      contador--;
+    });
+  }
+
   @override 
 Widget build(BuildContext context) {
   return Scaffold(
@@ -31,6 +37,10 @@ Widget build(BuildContext context) {
     floatingActionButton: FloatingActionButton(
       onPressed: increment,
       child: Icon(Icons.add),
+    ),
+    floatingActionButton: FloatingActionButton(
+      onPressed: decrement,
+      child: Icon(Icons.remove),
     ),
   );
 }

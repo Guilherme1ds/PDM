@@ -7,7 +7,7 @@ void main() {
   // R: O runApp exige que você passe a instância do widget raiz da sua aplicação. No caso o MyApp().
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget { 
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {

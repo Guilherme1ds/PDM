@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: ListaCompras(),
-  ));
+  runApp(
+    const MaterialApp(debugShowCheckedModeBanner: false, home: ListaCompras()),
+  );
 }
 
 class Item {
@@ -46,10 +45,12 @@ class _ListaComprasState extends State<ListaCompras> {
     setState(() {
       itens.clear();
       for (var i = 0; i < nomes.length; i++) {
-        itens.add(Item(
-          nome: nomes[i],
-          comprado: i < comprados.length && comprados[i] == 'true',
-        ));
+        itens.add(
+          Item(
+            nome: nomes[i],
+            comprado: i < comprados.length && comprados[i] == 'true',
+          ),
+        );
       }
     });
   }
@@ -57,7 +58,10 @@ class _ListaComprasState extends State<ListaCompras> {
   Future<void> _salvarDados() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList('itens', itens.map((item) => item.nome).toList());
-    await prefs.setStringList('comprado', itens.map((item) => item.comprado.toString()).toList());
+    await prefs.setStringList(
+      'comprado',
+      itens.map((item) => item.comprado.toString()).toList(),
+    );
   }
 
   void _adicionar() {
@@ -87,9 +91,7 @@ class _ListaComprasState extends State<ListaCompras> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Lista de Compras'),
-      ),
+      appBar: AppBar(title: const Text('Lista de Compras')),
       body: Column(
         children: [
           Padding(
@@ -125,7 +127,9 @@ class _ListaComprasState extends State<ListaCompras> {
                       final item = itens[index];
                       return ListTile(
                         leading: CircleAvatar(
-                          backgroundColor: item.comprado ? Colors.green : Colors.blue,
+                          backgroundColor: item.comprado
+                              ? Colors.green
+                              : Colors.blue,
                           child: Icon(
                             item.comprado ? Icons.check : Icons.shopping_cart,
                             color: Colors.white,
@@ -146,7 +150,9 @@ class _ListaComprasState extends State<ListaCompras> {
                             IconButton(
                               icon: Icon(
                                 item.comprado ? Icons.undo : Icons.check,
-                                color: item.comprado ? Colors.orange : Colors.green,
+                                color: item.comprado
+                                    ? Colors.orange
+                                    : Colors.green,
                               ),
                               onPressed: () => _toggle(index),
                             ),

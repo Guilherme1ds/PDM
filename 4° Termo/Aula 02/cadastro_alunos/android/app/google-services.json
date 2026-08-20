@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "137551730294",
+    "project_id": "cadastro-de-alunos-a3080",
+    "storage_bucket": "cadastro-de-alunos-a3080.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137551730294:android:dd2970af3f023416f0f157",
+        "android_client_info": {
+          "package_name": "com.example.cadastro_alunos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": ""
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

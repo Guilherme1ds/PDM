@@ -27,6 +27,9 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
 
   String textoPesquisa = "";
 
+  // Por que utilizamos o TextEditingController?
+  // R: Utilizamos o TextEditingController para gerenciar o estado dos campos de texto e facilitar a obtenção dos valores inseridos pelos usuários.
+
   Future<void> salvarAluno() async {
     String nome = nomeController.text;
     String idade = idadeController.text;

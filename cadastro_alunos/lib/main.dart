@@ -276,3 +276,42 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
 // persistente nos servidores do Cloud Firestore na nuvem, e não apenas na memória 
 // temporária (RAM) do aplicativo. Quando o app reabre, o StreamBuilder consulta 
 // a coleção novamente e recupera todos os registros.
+
+// Perguntas para responder:
+
+// 1. Qual é a função do Firebase em uma aplicação Flutter?
+// R: Prover serviços de Backend como Serviço (BaaS), incluindo banco de dados
+//    em tempo real, autenticação e hospedagem na nuvem sem precisar criar APIs manuais.
+//
+// 2. Para que serve o pacote firebase_core?
+// R: Servir como dependência base obrigatória para conectar e inicializar a integração
+//    entre a plataforma nativa do app Flutter e os serviços do Firebase.
+//
+// 3. Para que serve o cloud_firestore?
+// R: É a biblioteca que permite realizar a manipulação de dados NoSQL (CRUD)
+//    diretamente com a base de dados Cloud Firestore em tempo real.
+//
+// 4. O que é uma coleção no Firestore?
+// R: É um contêiner no banco de dados NoSQL que armazena conjuntos de documentos
+//    semelhantes (ex: a coleção 'alunos').
+//
+// 5. O que é um documento?
+// R: É a unidade básica que armazena os dados reais no Firestore em forma de
+//    pares de chave/valor, localizado dentro de uma coleção.
+//
+// 6. Qual método é utilizado para inserir dados?
+// R: O método .add() (para gerar IDs automáticos) ou .set() (para IDs definidos).
+//
+// 7. Qual método é utilizado para atualizar dados?
+// R: O método .update().
+//
+// 8. Qual método é utilizado para excluir dados?
+// R: O método .delete().
+//
+// 9. Qual é a diferença entre setState() e o Firestore?
+// R: O setState() redesenha a interface local na memória RAM do aparelho.
+//    O Firestore salva os dados persistentemente na nuvem.
+//
+// 10. Por que os dados continuam disponíveis depois de fechar o aplicativo?
+// R: Porque os registros ficam gravados em nuvem nos servidores do Firebase (e em cache local),
+//    e não dependem da execução contínua da aplicação na memória do celular.

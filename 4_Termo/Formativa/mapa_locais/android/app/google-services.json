@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "909975588780",
+    "project_id": "mapa-locais-fllutter",
+    "storage_bucket": "mapa-locais-fllutter.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909975588780:android:44636c228f579e8682b409",
+        "android_client_info": {
+          "package_name": "com.example.mapa_locais"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": ""
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

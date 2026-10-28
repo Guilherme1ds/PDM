@@ -1,30 +1,83 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// Testes automatizados da lógica do app (rodar com: flutter test).
+// Não dependem do Firebase, por isso rodam sem internet.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:mapa_locais/main.dart';
+import 'package:mapa_locais/models/local.dart';
+import 'package:mapa_locais/utils/filtros.dart';
+
+Local criar(String nome, String categoria, String cidade,
+    {bool favorito = false}) {
+  return Local(
+    id: nome,
+    nome: nome,
+    categoria: categoria,
+    cidade: cidade,
+    avaliacao: 4.5,
+    distancia: 1.0,
+    horario: '08:00 - 18:00',
+    descricao: '',
+    favorito: favorito,
+  );
+}
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  final locais = [
+    criar('Academia Fitness', 'Academia', 'São Paulo', favorito: true),
+    criar('Smart Fit', 'Academia', 'Campinas'),
+    criar('Cantina Bella', 'Restaurante', 'São Paulo'),
+    criar('Hospital Campinas', 'Hospital', 'Campinas'),
+  ];
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  group('Model Local', () {
+    test('fromMap e toMap preservam os dados', () {
+      final original = criar('Teste', 'Academia', 'Jundiaí');
+      final copia = Local.fromMap('Teste', original.toMap());
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+      expect(copia.nome, 'Teste');
+      expect(copia.categoria, 'Academia');
+      expect(copia.cidade, 'Jundiaí');
+      expect(copia.avaliacao, 4.5);
+    });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    test('fromMap usa valores padrão quando faltam campos', () {
+      final local = Local.fromMap('abc', {'avaliacao': 4});
+      expect(local.nome, '');
+      expect(local.avaliacao, 4.0);
+      expect(local.favorito, false);
+    });
+  });
+
+  group('Pesquisa e filtros', () {
+    test('T02 — pesquisa por "Academia" encontra por categoria', () {
+      final r = filtrarLocais(locais, 'academia', 'Todas', 'Todos');
+      expect(r.length, 2);
+    });
+
+    test('T03 — filtro por cidade Campinas', () {
+      final r = filtrarLocais(locais, '', 'Campinas', 'Todos');
+      expect(r.map((l) => l.nome).toList(), ['Smart Fit', 'Hospital Campinas']);
+    });
+
+    test('T04 — filtro por categoria Restaurante', () {
+      final r = filtrarLocais(locais, '', 'Todas', 'Restaurante');
+      expect(r.single.nome, 'Cantina Bella');
+    });
+
+    test('Filtros combinados (cidade + categoria)', () {
+      final r = filtrarLocais(locais, '', 'São Paulo', 'Academia');
+      expect(r.single.nome, 'Academia Fitness');
+    });
+
+    test('T09 — somente favoritos', () {
+      final r =
+          filtrarLocais(locais, '', 'Todas', 'Todos', somenteFavoritos: true);
+      expect(r.single.nome, 'Academia Fitness');
+    });
+
+    test('Pesquisa sem resultado retorna lista vazia', () {
+      final r = filtrarLocais(locais, 'xyz', 'Todas', 'Todos');
+      expect(r, isEmpty);
+    });
   });
 }
